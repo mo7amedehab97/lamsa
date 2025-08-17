@@ -1,0 +1,104 @@
+{#
+| Variable                         | Type     | Description                                                                  |
+|----------------------------------|----------|------------------------------------------------------------------------------|
+| component                        | object   | Contains merchant settings for fields from twilight.json `component` section |
+| component.background_image       | string   | Background image URL                                                         |
+| component.title                  | string   | Main banner title                                                           |
+| component.subtitle               | string   | Banner subtitle/description                                                 |
+| component.description            | string   | Detailed description text                                                   |
+| component.primary_button_text    | string   | Primary button text                                                         |
+| component.primary_button_url     | string   | Primary button URL                                                          |
+| component.secondary_button_text  | string   | Secondary button text                                                       |
+| component.secondary_button_url   | string   | Secondary button URL                                                        |
+| component.icon_image             | string   | Optional icon/logo image                                                    |
+| component.text_position          | string   | Text position: left, center, right                                         |
+| component.overlay_opacity        | string   | Background overlay opacity: light, medium, dark                             |
+| position                         | int      | Sorting number start from zero                                              |
+#}
+
+<section class="s-block s-block--hero-banner">
+    <div class="hero-banner-container relative overflow-hidden rounded-lg {{ component.text_position == 'center' ? 'text-center' : (component.text_position == 'right' ? 'text-right' : 'text-left') }}">
+        {# Background Image #}
+        {% if component.background_image %}
+            <div class="hero-banner-bg absolute inset-0 w-full h-full">
+                <img src="{{ component.background_image }}" alt="{{ component.title }}" class="w-full h-full object-cover">
+                {# Overlay #}
+                <div class="absolute inset-0 {{ component.overlay_opacity == 'dark' ? 'bg-black/70' : (component.overlay_opacity == 'medium' ? 'bg-black/40' : 'bg-black/20') }}"></div>
+            </div>
+        {% endif %}
+        
+        {# Content Container #}
+        <div class="container relative z-10">
+            <div class="hero-banner-content py-16 md:py-24 lg:py-32">
+                <div class="max-w-4xl {{ component.text_position == 'center' ? 'mx-auto' : (component.text_position == 'right' ? 'ml-auto' : 'mr-auto') }}">
+                    
+                    {# Icon/Logo #}
+                    {% if component.icon_image %}
+                        <div class="hero-banner-icon mb-6 {{ component.text_position == 'center' ? 'flex justify-center' : (component.text_position == 'right' ? 'flex justify-end' : 'flex justify-start') }}">
+                            <img src="{{ component.icon_image }}" alt="Icon" class="w-16 h-16 md:w-20 md:h-20 object-contain">
+                        </div>
+                    {% endif %}
+                    
+                    {# Title #}
+                    {% if component.title %}
+                        <h1 class="hero-banner-title text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white leading-tight">
+                            {{ component.title }}
+                        </h1>
+                    {% endif %}
+                    
+                    {# Subtitle #}
+                    {% if component.subtitle %}
+                        <h2 class="hero-banner-subtitle text-lg md:text-xl lg:text-2xl font-medium mb-6 text-white/90">
+                            {{ component.subtitle }}
+                        </h2>
+                    {% endif %}
+                    
+                    {# Description #}
+                    {% if component.description %}
+                        <p class="hero-banner-description text-base md:text-lg text-white/80 mb-8 leading-relaxed max-w-2xl {{ component.text_position == 'center' ? 'mx-auto' : '' }}">
+                            {{ component.description|raw }}
+                        </p>
+                    {% endif %}
+                    
+                    {# Call-to-Action Buttons #}
+                    {% if component.primary_button_text or component.secondary_button_text %}
+                        <div class="hero-banner-actions flex flex-col sm:flex-row gap-4 {{ component.text_position == 'center' ? 'justify-center' : (component.text_position == 'right' ? 'justify-end' : 'justify-start') }}">
+                            
+                            {# Primary Button #}
+                            {% if component.primary_button_text and component.primary_button_url %}
+                                <a href="{{ component.primary_button_url }}" 
+                                   class="hero-banner-btn hero-banner-btn--primary inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
+                                    {{ component.primary_button_text }}
+                                    <i class="sicon-arrow-left ml-2 rtl:rotate-180"></i>
+                                </a>
+                            {% endif %}
+                            
+                            {# Secondary Button #}
+                            {% if component.secondary_button_text and component.secondary_button_url %}
+                                <a href="{{ component.secondary_button_url }}" 
+                                   class="hero-banner-btn hero-banner-btn--secondary inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white border-2 border-white/30 hover:border-white hover:bg-white/10 rounded-lg transition-all duration-200">
+                                    {{ component.secondary_button_text }}
+                                </a>
+                            {% endif %}
+                            
+                        </div>
+                    {% endif %}
+                    
+                    {# Additional Info (like the patient count in your image) #}
+                    {% if component.stats_text %}
+                        <div class="hero-banner-stats mt-8 flex items-center gap-3 {{ component.text_position == 'center' ? 'justify-center' : (component.text_position == 'right' ? 'justify-end' : 'justify-start') }}">
+                            <div class="flex -space-x-2 rtl:space-x-reverse">
+                                {# Example avatars - can be made dynamic if needed #}
+                                <div class="w-8 h-8 rounded-full bg-white/20 border-2 border-white"></div>
+                                <div class="w-8 h-8 rounded-full bg-white/20 border-2 border-white"></div>
+                                <div class="w-8 h-8 rounded-full bg-white/20 border-2 border-white"></div>
+                            </div>
+                            <span class="text-white/90 text-sm font-medium">{{ component.stats_text }}</span>
+                        </div>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 

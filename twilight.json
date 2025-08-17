@@ -13,6 +13,7 @@
         "unite-cards-height",
         "component-featured-products",
         "component-fixed-banner",
+        "component-hero-banner",
         "component-fixed-products",
         "component-products-slider",
         "component-photos-slider",
@@ -1021,6 +1022,255 @@
                     "required": false,
                     "minLength": 1,
                     "maxLength": 30
+                }
+            ]
+        },
+        {
+            "key": "hero-banner-component",
+            "title": "بنر رئيسي مخصص",
+            "icon": "sicon-panorama-horizontal",
+            "path": "home.hero-banner",
+            "image": "https://cdn.salla.sa/mQgZlG/hero-banner-preview.png",
+            "is_default": true,
+            "fields": [
+                {
+                    "type": "static",
+                    "format": "description",
+                    "id": "hero-banner-desc",
+                    "value": "<div style='margin: -24px -20px 20px'><p style='color: #666; font-size: 14px;'>بنر رئيسي قابل للتخصيص بصورة خلفية، عنوان، وصف، وأزرار دعوة للعمل</p></div>"
+                },
+                {
+                    "id": "background_image",
+                    "type": "string",
+                    "format": "image",
+                    "label": "صورة الخلفية",
+                    "icon": "sicon-image",
+                    "value": null,
+                    "required": true,
+                    "description": "المقاس المناسب للصورة هو 1200×600 بكسل",
+                    "settings": {
+                        "height": 600,
+                        "width": 1200
+                    }
+                },
+                {
+                    "id": "title",
+                    "type": "string",
+                    "format": "text",
+                    "label": "العنوان الرئيسي",
+                    "icon": "sicon-format-text-alt",
+                    "value": null,
+                    "required": true,
+                    "multilanguage": true,
+                    "placeholder": "ابدأ رحلتك الصحية بسهولة",
+                    "maxLength": 100
+                },
+                {
+                    "id": "subtitle",
+                    "type": "string",
+                    "format": "text",
+                    "label": "العنوان الفرعي",
+                    "icon": "sicon-typography",
+                    "value": null,
+                    "required": false,
+                    "multilanguage": true,
+                    "placeholder": "مرحباً بك في منصة رعاية",
+                    "maxLength": 150
+                },
+                {
+                    "id": "description",
+                    "type": "string",
+                    "format": "textarea",
+                    "label": "الوصف",
+                    "icon": "sicon-document-text",
+                    "value": null,
+                    "required": false,
+                    "multilanguage": true,
+                    "placeholder": "منصة \"رعاية\" تتيح لك حجز مواعيد مع أفضل الأطباء في مختلف التخصصات بدون مكالمات أو انتظار من خلال خطوات بسيطة",
+                    "maxLength": 300
+                },
+                {
+                    "id": "icon_image",
+                    "type": "string",
+                    "format": "image",
+                    "label": "أيقونة/شعار",
+                    "icon": "sicon-star",
+                    "value": null,
+                    "required": false,
+                    "description": "أيقونة أو شعار صغير يظهر فوق العنوان. المقاس المناسب 80×80 بكسل",
+                    "settings": {
+                        "height": 80,
+                        "width": 80
+                    }
+                },
+                {
+                    "id": "text_position",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "موضع النص",
+                    "icon": "sicon-location",
+                    "selected": [
+                        {
+                            "label": "يسار",
+                            "value": "left",
+                            "key": "text-left"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "يسار",
+                            "value": "left",
+                            "key": "text-left"
+                        },
+                        {
+                            "label": "وسط",
+                            "value": "center",
+                            "key": "text-center"
+                        },
+                        {
+                            "label": "يمين",
+                            "value": "right",
+                            "key": "text-right"
+                        }
+                    ],
+                    "source": "Manual",
+                    "required": true
+                },
+                {
+                    "id": "overlay_opacity",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "شفافية الطبقة المظللة",
+                    "icon": "sicon-opacity",
+                    "selected": [
+                        {
+                            "label": "متوسط",
+                            "value": "medium",
+                            "key": "overlay-medium"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "خفيف",
+                            "value": "light",
+                            "key": "overlay-light"
+                        },
+                        {
+                            "label": "متوسط",
+                            "value": "medium",
+                            "key": "overlay-medium"
+                        },
+                        {
+                            "label": "داكن",
+                            "value": "dark",
+                            "key": "overlay-dark"
+                        }
+                    ],
+                    "source": "Manual",
+                    "required": true
+                },
+                {
+                    "id": "primary_button_text",
+                    "type": "string",
+                    "format": "text",
+                    "label": "نص الزر الرئيسي",
+                    "icon": "sicon-cursor-click",
+                    "value": null,
+                    "required": false,
+                    "multilanguage": true,
+                    "placeholder": "احجز موعد",
+                    "maxLength": 50
+                },
+                {
+                    "id": "primary_button_url",
+                    "type": "items",
+                    "format": "variable-list",
+                    "label": "رابط الزر الرئيسي",
+                    "icon": "sicon-link",
+                    "value": null,
+                    "required": false,
+                    "searchable": true,
+                    "source": "custom",
+                    "sources": [
+                        {
+                            "label": "منتج",
+                            "key": "products",
+                            "value": "products"
+                        },
+                        {
+                            "label": "تصنيف",
+                            "key": "categories",
+                            "value": "categories"
+                        },
+                        {
+                            "label": "صفحة تعريفية",
+                            "key": "pages",
+                            "value": "pages"
+                        },
+                        {
+                            "label": "رابط خارجي",
+                            "key": "custom",
+                            "value": "custom"
+                        }
+                    ]
+                },
+                {
+                    "id": "secondary_button_text",
+                    "type": "string",
+                    "format": "text",
+                    "label": "نص الزر الثانوي",
+                    "icon": "sicon-cursor-click",
+                    "value": null,
+                    "required": false,
+                    "multilanguage": true,
+                    "placeholder": "تصفح الأطباء",
+                    "maxLength": 50
+                },
+                {
+                    "id": "secondary_button_url",
+                    "type": "items",
+                    "format": "variable-list",
+                    "label": "رابط الزر الثانوي",
+                    "icon": "sicon-link",
+                    "value": null,
+                    "required": false,
+                    "searchable": true,
+                    "source": "custom",
+                    "sources": [
+                        {
+                            "label": "منتج",
+                            "key": "products",
+                            "value": "products"
+                        },
+                        {
+                            "label": "تصنيف",
+                            "key": "categories",
+                            "value": "categories"
+                        },
+                        {
+                            "label": "صفحة تعريفية",
+                            "key": "pages",
+                            "value": "pages"
+                        },
+                        {
+                            "label": "رابط خارجي",
+                            "key": "custom",
+                            "value": "custom"
+                        }
+                    ]
+                },
+                {
+                    "id": "stats_text",
+                    "type": "string",
+                    "format": "text",
+                    "label": "نص إحصائي إضافي",
+                    "icon": "sicon-chart-pie",
+                    "value": null,
+                    "required": false,
+                    "multilanguage": true,
+                    "placeholder": "أكثر من 10 آلاف مريض يستخدم منصة رعاية شهرياً",
+                    "maxLength": 100,
+                    "description": "نص إضافي يظهر أسفل الأزرار مع رموز صغيرة"
                 }
             ]
         }

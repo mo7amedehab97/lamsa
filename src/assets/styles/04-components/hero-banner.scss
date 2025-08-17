@@ -1,0 +1,235 @@
+/*
+  Hero Banner Component Styles
+*/
+.s-block--hero-banner {
+  @apply mb-8 md:mb-12;
+
+  .hero-banner-container {
+    @apply relative min-h-[400px] md:min-h-[500px] lg:min-h-[600px] flex items-center;
+    
+    // Background image responsiveness
+    .hero-banner-bg {
+      img {
+        @apply transition-transform duration-500 ease-out;
+        
+        &:hover {
+          @apply scale-105;
+        }
+      }
+    }
+
+    // Content positioning and spacing
+    .hero-banner-content {
+      @apply relative z-20;
+      
+      // Text animations
+      .hero-banner-title {
+        @apply animate-fade-in-up;
+        animation-delay: 0.2s;
+        animation-fill-mode: both;
+      }
+      
+      .hero-banner-subtitle {
+        @apply animate-fade-in-up;
+        animation-delay: 0.4s;
+        animation-fill-mode: both;
+      }
+      
+      .hero-banner-description {
+        @apply animate-fade-in-up;
+        animation-delay: 0.6s;
+        animation-fill-mode: both;
+      }
+      
+      .hero-banner-actions {
+        @apply animate-fade-in-up;
+        animation-delay: 0.8s;
+        animation-fill-mode: both;
+      }
+      
+      .hero-banner-stats {
+        @apply animate-fade-in-up;
+        animation-delay: 1s;
+        animation-fill-mode: both;
+      }
+    }
+  }
+
+  // Button styles
+  .hero-banner-btn {
+    @apply transition-all duration-300 ease-out transform;
+    
+    &:hover {
+      @apply -translate-y-1 shadow-2xl;
+    }
+    
+    &--primary {
+      @apply bg-gradient-to-r from-blue-600 to-blue-700;
+      
+      &:hover {
+        @apply from-blue-700 to-blue-800;
+      }
+    }
+    
+    &--secondary {
+      @apply backdrop-blur-sm;
+      
+      &:hover {
+        @apply bg-white/20 border-white/50;
+      }
+    }
+  }
+
+  // Icon styling
+  .hero-banner-icon {
+    img {
+      @apply drop-shadow-lg animate-bounce-subtle;
+    }
+  }
+
+  // Stats section
+  .hero-banner-stats {
+    .w-8 {
+      @apply transition-transform duration-200;
+      
+      &:hover {
+        @apply scale-110;
+      }
+    }
+  }
+
+  // Mobile optimizations
+  @media (max-width: 640px) {
+    .hero-banner-container {
+      @apply min-h-[350px] text-center;
+      
+      .hero-banner-content {
+        @apply py-12;
+        
+        .hero-banner-title {
+          @apply text-2xl;
+        }
+        
+        .hero-banner-subtitle {
+          @apply text-lg;
+        }
+        
+        .hero-banner-description {
+          @apply text-sm;
+        }
+        
+        .hero-banner-actions {
+          @apply flex-col gap-3;
+          
+          .hero-banner-btn {
+            @apply w-full py-4;
+          }
+        }
+      }
+    }
+  }
+
+  // Tablet optimizations
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .hero-banner-container {
+      @apply min-h-[450px];
+      
+      .hero-banner-content {
+        @apply py-16;
+        
+        .hero-banner-title {
+          @apply text-3xl;
+        }
+        
+        .hero-banner-subtitle {
+          @apply text-xl;
+        }
+      }
+    }
+  }
+
+  // Dark mode support
+  @media (prefers-color-scheme: dark) {
+    .hero-banner-btn--secondary {
+      @apply border-gray-300/30;
+      
+      &:hover {
+        @apply border-gray-300/50 bg-gray-300/10;
+      }
+    }
+  }
+
+  // RTL support enhancements
+  [dir="rtl"] & {
+    .hero-banner-btn .sicon-arrow-left {
+      @apply rotate-180;
+    }
+    
+    .hero-banner-stats .flex {
+      @apply space-x-reverse;
+    }
+  }
+}
+
+// Custom animations
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+// Utility classes
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s infinite;
+}
+
+// Container variants for different layouts
+.hero-banner-container {
+  // Full-width variant
+  &.hero-banner--full-width {
+    @apply rounded-none;
+  }
+  
+  // Compact variant
+  &.hero-banner--compact {
+    @apply min-h-[300px] md:min-h-[350px] lg:min-h-[400px];
+    
+    .hero-banner-content {
+      @apply py-8 md:py-12 lg:py-16;
+    }
+  }
+  
+  // Minimal variant
+  &.hero-banner--minimal {
+    @apply min-h-[250px] md:min-h-[300px] lg:min-h-[350px];
+    
+    .hero-banner-content {
+      @apply py-6 md:py-8 lg:py-12;
+      
+      .hero-banner-title {
+        @apply text-2xl md:text-3xl lg:text-4xl;
+      }
+    }
+  }
+} 
