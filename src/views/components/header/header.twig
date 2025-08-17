@@ -5,39 +5,105 @@
 | cart.items_count | int     |                                 |
 | cart.total       | string  | Formatted total ex: "١٠٠ ر.س"   |
 #}
+
+{# Welcome Banner with rotating messages #}
+<div id="welcome-banner" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-center py-2 text-sm font-medium overflow-hidden">
+    <div class="welcome-messages">
+        <div class="welcome-message active">🌟 اكتشف أناقة اليوم مع لمسة</div>
+        <div class="welcome-message">✨ تخفيضات حصرية على المجموعة الجديدة</div>
+        <div class="welcome-message">🎁 شحن مجاني للطلبات فوق 200 ريال</div>
+        <div class="welcome-message">💎 أحدث صيحات الموضة متوفرة الآن</div>
+    </div>
+</div>
+
 <header class="store-header">
-  {# Main Header with new design #}
+  {# Main Header with enhanced design #}
   <div id="mainnav" class="main-nav-container bg-white shadow-sm">
       <div class="inner bg-inherit">
           <div class="container">
               <div class="flex items-center justify-between py-4">
-                    {# Store Logo and Name #}
-                    <a href="{{ store.url }}" aria-label="{{ store.name }} logo" class="flex items-center">
+                    {# Store Logo and Name with enhanced styling #}
+                    <a href="{{ store.url }}" aria-label="{{ store.name }} logo" class="flex items-center group">
                         {% if store.logo %}
-                            <img src="{{ store.logo }}" width="40" height="40" alt="{{ store.name }} logo" class="w-10 h-10 object-contain ml-2">
+                            <img src="{{ store.logo }}" width="40" height="40" alt="{{ store.name }} logo" class="w-10 h-10 object-contain ml-2 transition-transform duration-300 group-hover:scale-110">
                         {% endif %}
-                        <span class="text-blue-600 text-sm font-medium hover:text-blue-700">{{ store.name }}</span>
+                        <span class="text-blue-600 text-sm font-medium hover:text-blue-700 transition-colors duration-300">{{ store.name }}</span>
                     </a>
-                          <salla-localization-modal></salla-localization-modal>
+                    <salla-localization-modal></salla-localization-modal>
 
-                  {# Center - Navigation Menu #}
-                  <nav class="hidden lg:flex items-center space-x-8 rtl:space-x-reverse">
-                      <a href="{{ store.url }}" class="nav-link text-gray-600 hover:text-gray-900 text-sm font-medium">
-                          الرئيسية
-                      </a>
-                      <a href="{{ store.url }}/page/about" class="nav-link text-gray-600 hover:text-gray-900 text-sm font-medium">
-                          من نحن
-                      </a>
-                      <a href="{{ store.url }}/page/pricing" class="nav-link text-gray-600 hover:text-gray-900 text-sm font-medium">
-                          خطط الأسعار
-                      </a>
-                      <a href="{{ store.url }}/page/faq" class="nav-link text-gray-600 hover:text-gray-900 text-sm font-medium">
-                          أسئلة شائعة
-                      </a>
+                  {# Center - Enhanced Navigation Menu with Categories #}
+                  <nav class="hidden lg:flex items-center justify-center flex-1">
+                      <div class="flex space-x-8 rtl:space-x-reverse">
+                          <a href="{{ store.url }}" class="nav-link text-gray-600 hover:text-gray-900 text-sm font-medium transition-all duration-300 relative group">
+                              الرئيسية
+                              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                          </a>
+                          
+                          {# Dynamic Categories with Hover Effects #}
+                          <div class="category-dropdown group relative">
+                              <a href="#" class="nav-link text-gray-600 hover:text-gray-900 text-sm font-medium transition-all duration-300 flex items-center">
+                                  رجالي
+                                  <i class="sicon-keyboard_arrow_down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                              </a>
+                              <div class="category-preview absolute top-full left-0 w-80 bg-white shadow-xl rounded-lg p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                                  <div class="grid grid-cols-2 gap-4">
+                                      <div class="category-item p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                                          <img src="{{ 'images/placeholder.png' | asset }}" alt="قمصان" class="w-full h-20 object-cover rounded mb-2">
+                                          <span class="text-sm font-medium text-gray-700">قمصان</span>
+                                      </div>
+                                      <div class="category-item p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                                          <img src="{{ 'images/placeholder.png' | asset }}" alt="بناطيل" class="w-full h-20 object-cover rounded mb-2">
+                                          <span class="text-sm font-medium text-gray-700">بناطيل</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                          <div class="category-dropdown group relative">
+                              <a href="#" class="nav-link text-gray-600 hover:text-gray-900 text-sm font-medium transition-all duration-300 flex items-center">
+                                  نسائي
+                                  <i class="sicon-keyboard_arrow_down ml-1 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                              </a>
+                              <div class="category-preview absolute top-full left-0 w-80 bg-white shadow-xl rounded-lg p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                                  <div class="grid grid-cols-2 gap-4">
+                                      <div class="category-item p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                                          <img src="{{ 'images/placeholder.png' | asset }}" alt="فساتين" class="w-full h-20 object-cover rounded mb-2">
+                                          <span class="text-sm font-medium text-gray-700">فساتين</span>
+                                      </div>
+                                      <div class="category-item p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                                          <img src="{{ 'images/placeholder.png' | asset }}" alt="عبايات" class="w-full h-20 object-cover rounded mb-2">
+                                          <span class="text-sm font-medium text-gray-700">عبايات</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                          <a href="#" class="nav-link text-gray-600 hover:text-gray-900 text-sm font-medium transition-all duration-300 relative group">
+                              أكسسوارات
+                              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                          </a>
+                      </div>
                   </nav>
 
-                  {# Right side - Language/Currency and User Actions #}
+                  {# Right side - Enhanced User Actions #}
                   <div class="flex items-center gap-4">
+                      {# Enhanced Search with AI suggestions #}
+                      <div class="search-container relative hidden md:block">
+                          <div class="relative">
+                              <input type="text" id="ai-search" placeholder="ابحث عن المنتجات..." 
+                                     class="w-64 px-4 py-2 pr-10 text-sm border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300">
+                              <i class="sicon-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                          </div>
+                          <div id="search-suggestions" class="absolute top-full left-0 right-0 bg-white shadow-xl rounded-lg mt-2 opacity-0 invisible transition-all duration-300 z-50">
+                              <div class="p-4">
+                                  <div class="text-xs text-gray-500 mb-2">اقتراحات</div>
+                                  <div class="space-y-2" id="suggestions-list">
+                                      <!-- Dynamic suggestions will be populated here -->
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
                       {# Language & Currency Component #}
                       {% if store.settings.is_multilingual or store.settings.currencies_enabled %}
                         
@@ -52,15 +118,21 @@
                       {% if user.type=='user' %}
                         <salla-user-menu avatar-only show-header class="hidden lg:block"></salla-user-menu>
                       {% else %}
-                          <button class="hidden lg:block p-2" aria-label="user-icon" onclick="salla.event.dispatch('login::open')">
+                          <button class="hidden lg:block p-2 hover:bg-gray-100 rounded-full transition-colors duration-200" aria-label="user-icon" onclick="salla.event.dispatch('login::open')">
                             <i class="sicon-user-circle text-gray-600 text-xl"></i>
                           </button>
                       {% endif %}
 
-                      {# Cart #}
-                      <salla-cart-summary class="hidden lg:block">
-                        <i slot="icon" class="sicon-shopping-bag text-gray-600 text-xl"></i>
-                      </salla-cart-summary>
+                      {# Enhanced Cart with Animation #}
+                      <div class="cart-container relative">
+                          <salla-cart-summary class="hidden lg:block">
+                            <i slot="icon" class="sicon-shopping-bag text-gray-600 text-xl transition-transform duration-300 hover:scale-110"></i>
+                          </salla-cart-summary>
+                          {# Cart Animation Bubble #}
+                          <div id="cart-bubble" class="cart-bubble absolute -top-2 -right-2 w-6 h-6 bg-green-500 text-white text-xs rounded-full flex items-center justify-center opacity-0 scale-0 transition-all duration-500">
+                              +1
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -76,11 +148,8 @@
                   <i class="sicon-close text-xl"></i>
               </button>
           </div>
-          <nav class="space-y-4">
+          <nav class="">
               <a href="{{ store.url }}" class="block py-2 text-gray-700 hover:text-blue-600">الرئيسية</a>
-              <a href="{{ store.url }}/page/about" class="block py-2 text-gray-700 hover:text-blue-600">من نحن</a>
-              <a href="{{ store.url }}/page/pricing" class="block py-2 text-gray-700 hover:text-blue-600">خطط الأسعار</a>
-              <a href="{{ store.url }}/page/faq" class="block py-2 text-gray-700 hover:text-blue-600">أسئلة شائعة</a>
           </nav>
           <div class="mt-8 pt-6 border-t">
               {% if user.type=='user' %}

@@ -1031,7 +1031,7 @@
             "icon": "sicon-panorama-horizontal",
             "path": "home.hero-banner",
             "image": "https://cdn.salla.sa/mQgZlG/hero-banner-preview.png",
-            "is_default": true,
+            "is_default": false,
             "fields": [
                 {
                     "type": "static",
@@ -1045,7 +1045,7 @@
                     "format": "image",
                     "label": "صورة الخلفية",
                     "icon": "sicon-image",
-                    "value": null,
+                    "value": "https://cdn.salla.sa/mQgZlG/pzOCEw10wCfXeVSpKnL0Ifd1O9ZkTfnZ17RkE14R.jpg",
                     "required": true,
                     "description": "المقاس المناسب للصورة هو 1200×600 بكسل",
                     "settings": {
@@ -1059,10 +1059,13 @@
                     "format": "text",
                     "label": "العنوان الرئيسي",
                     "icon": "sicon-format-text-alt",
-                    "value": null,
+                    "value": {
+                        "ar": "عبايات أنيقة تعكس أناقتك",
+                        "en": "Elegant Abayas Reflecting Your Style"
+                    },
                     "required": true,
                     "multilanguage": true,
-                    "placeholder": "ابدأ رحلتك الصحية بسهولة",
+                    "placeholder": "عبايات أنيقة تعكس أناقتك",
                     "maxLength": 100
                 },
                 {
@@ -1071,10 +1074,13 @@
                     "format": "text",
                     "label": "العنوان الفرعي",
                     "icon": "sicon-typography",
-                    "value": null,
+                    "value": {
+                        "ar": "مجموعة حصرية من أجمل العبايات النسائية",
+                        "en": "Exclusive Collection of Beautiful Women's Abayas"
+                    },
                     "required": false,
                     "multilanguage": true,
-                    "placeholder": "مرحباً بك في منصة رعاية",
+                    "placeholder": "مجموعة حصرية من أجمل العبايات النسائية",
                     "maxLength": 150
                 },
                 {
@@ -1083,10 +1089,13 @@
                     "format": "textarea",
                     "label": "الوصف",
                     "icon": "sicon-document-text",
-                    "value": null,
+                    "value": {
+                        "ar": "اكتشفي مجموعتنا المميزة من العبايات العصرية والتراثية المصممة خصيصاً للمرأة العربية الأنيقة. تصاميم فاخرة بأجود الخامات وأحدث صيحات الموضة",
+                        "en": "Discover our distinctive collection of modern and traditional abayas designed especially for the elegant Arab woman. Luxurious designs with the finest materials and latest fashion trends"
+                    },
                     "required": false,
                     "multilanguage": true,
-                    "placeholder": "منصة \"رعاية\" تتيح لك حجز مواعيد مع أفضل الأطباء في مختلف التخصصات بدون مكالمات أو انتظار من خلال خطوات بسيطة",
+                    "placeholder": "اكتشفي مجموعتنا المميزة من العبايات العصرية والتراثية المصممة خصيصاً للمرأة العربية الأنيقة",
                     "maxLength": 300
                 },
                 {
@@ -1175,10 +1184,13 @@
                     "format": "text",
                     "label": "نص الزر الرئيسي",
                     "icon": "sicon-cursor-click",
-                    "value": null,
+                    "value": {
+                        "ar": "تسوقي الآن",
+                        "en": "Shop Now"
+                    },
                     "required": false,
                     "multilanguage": true,
-                    "placeholder": "احجز موعد",
+                    "placeholder": "تسوقي الآن",
                     "maxLength": 50
                 },
                 {
@@ -1220,10 +1232,13 @@
                     "format": "text",
                     "label": "نص الزر الثانوي",
                     "icon": "sicon-cursor-click",
-                    "value": null,
+                    "value": {
+                        "ar": "عرض المجموعة",
+                        "en": "View Collection"
+                    },
                     "required": false,
                     "multilanguage": true,
-                    "placeholder": "تصفح الأطباء",
+                    "placeholder": "عرض المجموعة",
                     "maxLength": 50
                 },
                 {
@@ -1268,7 +1283,7 @@
                     "value": null,
                     "required": false,
                     "multilanguage": true,
-                    "placeholder": "أكثر من 10 آلاف مريض يستخدم منصة رعاية شهرياً",
+                    "placeholder": "أكثر من 5000 عميلة راضية عن منتجاتنا",
                     "maxLength": 100,
                     "description": "نص إضافي يظهر أسفل الأزرار مع رموز صغيرة"
                 }

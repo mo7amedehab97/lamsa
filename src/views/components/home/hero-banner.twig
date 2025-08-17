@@ -16,89 +16,133 @@
 | position                         | int      | Sorting number start from zero                                              |
 #}
 
-<section class="s-block s-block--hero-banner">
-    <div class="hero-banner-container relative overflow-hidden rounded-lg {{ component.text_position == 'center' ? 'text-center' : (component.text_position == 'right' ? 'text-right' : 'text-left') }}">
-        {# Background Image #}
+<section class="s-block s-block--hero-banner hero-banner-enhanced">
+    <div class="hero-banner-container relative overflow-hidden rounded-lg {{ component.text_position == 'center' ? 'text-center' : (component.text_position == 'right' ? 'text-right' : 'text-left') }}" data-parallax-container>
+        
+        {# Animated Background Elements #}
+        <div class="hero-bg-animations absolute inset-0 pointer-events-none">
+            <div class="floating-element floating-element-1"></div>
+            <div class="floating-element floating-element-2"></div>
+            <div class="floating-element floating-element-3"></div>
+        </div>
+        
+        {# Background Image with Parallax #}
         {% if component.background_image %}
-            <div class="hero-banner-bg absolute inset-0 w-full h-full">
-                <img src="{{ component.background_image }}" alt="{{ component.title }}" class="w-full h-full object-cover">
-                {# Overlay #}
-                <div class="absolute inset-0 {{ component.overlay_opacity == 'dark' ? 'bg-black/70' : (component.overlay_opacity == 'medium' ? 'bg-black/40' : 'bg-black/20') }}"></div>
+            <div class="hero-banner-bg absolute inset-0 w-full h-full" data-parallax-bg>
+                <img src="{{ component.background_image }}" alt="{{ component.title }}" class="w-full h-full object-cover parallax-image">
+                {# Enhanced Gradient Overlay #}
+                <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/30 {{ component.overlay_opacity == 'dark' ? 'opacity-100' : (component.overlay_opacity == 'medium' ? 'opacity-75' : 'opacity-50') }}"></div>
+                {# Additional animated overlay #}
+                <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent animate-pulse-slow"></div>
             </div>
         {% endif %}
         
-        {# Content Container #}
+        {# Content Container with Enhanced Animations #}
         <div class="container relative z-10">
             <div class="hero-banner-content py-16 md:py-24 lg:py-32">
                 <div class="max-w-4xl {{ component.text_position == 'center' ? 'mx-auto' : (component.text_position == 'right' ? 'ml-auto' : 'mr-auto') }}">
                     
-                    {# Icon/Logo #}
+                    {# Seasonal Badge #}
+                    <div class="seasonal-badge mb-6 {{ component.text_position == 'center' ? 'flex justify-center' : (component.text_position == 'right' ? 'flex justify-end' : 'flex justify-start') }}">
+                        <div class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium border border-white/30">
+                            <i class="sicon-star ml-2 text-yellow-300"></i>
+                            مجموعة {{ "now"|date("Y") }} الحصرية
+                        </div>
+                    </div>
+                    
+                    {# Icon/Logo with Animation #}
                     {% if component.icon_image %}
                         <div class="hero-banner-icon mb-6 {{ component.text_position == 'center' ? 'flex justify-center' : (component.text_position == 'right' ? 'flex justify-end' : 'flex justify-start') }}">
-                            <img src="{{ component.icon_image }}" alt="Icon" class="w-16 h-16 md:w-20 md:h-20 object-contain">
+                            <div class="icon-container relative">
+                                <img src="{{ component.icon_image }}" alt="Icon" class="w-16 h-16 md:w-20 md:h-20 object-contain animate-float">
+                                <div class="absolute inset-0 bg-white/20 rounded-full animate-ping-slow"></div>
+                            </div>
                         </div>
                     {% endif %}
                     
-                    {# Title #}
+                    {# Enhanced Title with Typing Effect #}
                     {% if component.title %}
-                        <h1 class="hero-banner-title text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white leading-tight">
-                            {{ component.title }}
+                        <h1 class="hero-banner-title text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white leading-tight animate-fade-in-up">
+                            <span class="typing-text" data-text="{{ component.title }}">{{ component.title }}</span>
                         </h1>
                     {% endif %}
                     
-                    {# Subtitle #}
+                    {# Subtitle with Slide Animation #}
                     {% if component.subtitle %}
-                        <h2 class="hero-banner-subtitle text-lg md:text-xl lg:text-2xl font-medium mb-6 text-white/90">
+                        <h2 class="hero-banner-subtitle text-lg md:text-xl lg:text-2xl font-medium mb-6 text-white/90 animate-fade-in-up animation-delay-200">
                             {{ component.subtitle }}
                         </h2>
                     {% endif %}
                     
-                    {# Description #}
+                    {# Description with Fade Animation #}
                     {% if component.description %}
-                        <p class="hero-banner-description text-base md:text-lg text-white/80 mb-8 leading-relaxed max-w-2xl {{ component.text_position == 'center' ? 'mx-auto' : '' }}">
+                        <p class="hero-banner-description text-base md:text-lg text-white/80 mb-8 leading-relaxed max-w-2xl {{ component.text_position == 'center' ? 'mx-auto' : '' }} animate-fade-in-up animation-delay-400">
                             {{ component.description|raw }}
                         </p>
                     {% endif %}
                     
-                    {# Call-to-Action Buttons #}
+                    {# Enhanced Call-to-Action Buttons #}
                     {% if component.primary_button_text or component.secondary_button_text %}
-                        <div class="hero-banner-actions flex flex-col sm:flex-row gap-4 {{ component.text_position == 'center' ? 'justify-center' : (component.text_position == 'right' ? 'justify-end' : 'justify-start') }}">
+                        <div class="hero-banner-actions flex flex-col sm:flex-row gap-4 {{ component.text_position == 'center' ? 'justify-center' : (component.text_position == 'right' ? 'justify-end' : 'justify-start') }} animate-fade-in-up animation-delay-600">
                             
-                            {# Primary Button #}
+                            {# Primary Button with Enhanced Styling #}
                             {% if component.primary_button_text and component.primary_button_url %}
                                 <a href="{{ component.primary_button_url }}" 
-                                   class="hero-banner-btn hero-banner-btn--primary inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
-                                    {{ component.primary_button_text }}
-                                    <i class="sicon-arrow-left ml-2 rtl:rotate-180"></i>
+                                   class="hero-banner-btn hero-banner-btn--primary group inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 relative overflow-hidden">
+                                    <span class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out"></span>
+                                    <span class="relative">{{ component.primary_button_text }}</span>
+                                    <i class="sicon-arrow-left ml-2 rtl:rotate-180 transition-transform duration-300 group-hover:translate-x-1"></i>
                                 </a>
                             {% endif %}
                             
-                            {# Secondary Button #}
+                            {# Secondary Button with Hover Effect #}
                             {% if component.secondary_button_text and component.secondary_button_url %}
                                 <a href="{{ component.secondary_button_url }}" 
-                                   class="hero-banner-btn hero-banner-btn--secondary inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white border-2 border-white/30 hover:border-white hover:bg-white/10 rounded-lg transition-all duration-200">
-                                    {{ component.secondary_button_text }}
+                                   class="hero-banner-btn hero-banner-btn--secondary group inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white border-2 border-white/30 hover:border-white hover:bg-white/10 rounded-lg transition-all duration-300 backdrop-blur-sm">
+                                    <span class="transition-transform duration-300 group-hover:scale-110">{{ component.secondary_button_text }}</span>
                                 </a>
                             {% endif %}
                             
                         </div>
                     {% endif %}
                     
-                    {# Additional Info (like the patient count in your image) #}
+                    {# Enhanced Stats Section #}
                     {% if component.stats_text %}
-                        <div class="hero-banner-stats mt-8 flex items-center gap-3 {{ component.text_position == 'center' ? 'justify-center' : (component.text_position == 'right' ? 'justify-end' : 'justify-start') }}">
+                        <div class="hero-banner-stats mt-8 flex items-center gap-3 {{ component.text_position == 'center' ? 'justify-center' : (component.text_position == 'right' ? 'justify-end' : 'justify-start') }} animate-fade-in-up animation-delay-800">
                             <div class="flex-container flex -space-x-2 rtl:space-x-reverse">
-                                {# Example avatars - can be made dynamic if needed #}
-                                <div class="w-8 h-8 rounded-full bg-white/20 border-2 border-white"></div>
-                                <div class="w-8 h-8 rounded-full bg-white/20 border-2 border-white"></div>
-                                <div class="w-8 h-8 rounded-full bg-white/20 border-2 border-white"></div>
+                                {# Enhanced Customer Avatars #}
+                                <div class="customer-avatar w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">👩</div>
+                                <div class="customer-avatar w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">👨</div>
+                                <div class="customer-avatar w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">👩</div>
+                                <div class="customer-avatar w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-red-500 border-2 border-white flex items-center justify-center text-white text-xs">+</div>
                             </div>
-                            <span class="text-white/90 text-sm font-medium">{{ component.stats_text }}</span>
+                            <div class="stats-text">
+                                <span class="text-white/90 text-sm font-medium">{{ component.stats_text }}</span>
+                                <div class="flex items-center mt-1">
+                                    <div class="flex text-yellow-400 text-xs">
+                                        <i class="sicon-star"></i>
+                                        <i class="sicon-star"></i>
+                                        <i class="sicon-star"></i>
+                                        <i class="sicon-star"></i>
+                                        <i class="sicon-star"></i>
+                                    </div>
+                                    <span class="text-white/70 text-xs mr-2">4.9 من 5</span>
+                                </div>
+                            </div>
                         </div>
                     {% endif %}
                     
                 </div>
             </div>
         </div>
+        
+        {# Scroll Indicator #}
+        <div class="scroll-indicator absolute bottom-8 left-1/2 transform -translate-x-1/2 {{ component.text_position == 'center' ? 'flex' : 'hidden lg:flex' }} flex-col items-center text-white/70">
+            <span class="text-xs mb-2">اكتشف المزيد</span>
+            <div class="w-px h-8 bg-white/30 relative">
+                <div class="w-px h-4 bg-white absolute top-0 animate-bounce"></div>
+            </div>
+        </div>
+        
     </div>
 </section> 

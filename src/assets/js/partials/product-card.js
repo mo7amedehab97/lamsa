@@ -42,6 +42,255 @@ class ProductCard extends HTMLElement {
       this.render()
   }
 
+  /**
+   * Enhanced hover effects and interactions
+   */
+  initEnhancedHoverEffects() {
+    const productCard = this;
+    const hoverActions = this.querySelector('.product-hover-actions');
+    const quickViewBtn = this.querySelector('.quick-view-btn');
+    const compareBtn = this.querySelector('.compare-btn');
+    const productImage = this.querySelector('.s-product-card-image img');
+
+    // Enhanced hover animation
+    productCard.addEventListener('mouseenter', () => {
+      productCard.classList.add('product-card-hovered');
+      if (hoverActions) {
+        hoverActions.style.opacity = '1';
+        hoverActions.style.transform = 'translateY(0)';
+      }
+    });
+
+    productCard.addEventListener('mouseleave', () => {
+      productCard.classList.remove('product-card-hovered');
+      if (hoverActions) {
+        hoverActions.style.opacity = '0';
+        hoverActions.style.transform = 'translateY(20px)';
+      }
+    });
+
+    // Quick view functionality
+    if (quickViewBtn) {
+      quickViewBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.showQuickView();
+      });
+    }
+
+    // Compare functionality
+    if (compareBtn) {
+      compareBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.toggleCompare();
+      });
+    }
+
+    // Color swatches hover effect
+    const colorSwatches = this.querySelectorAll('.color-swatch');
+    colorSwatches.forEach(swatch => {
+      swatch.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.changeProductVariant(swatch.dataset.variantId, swatch.dataset.imageUrl);
+      });
+    });
+  }
+
+  /**
+   * Show quick view modal
+   */
+  showQuickView() {
+    // Create quick view modal
+    const modal = document.createElement('div');
+    modal.className = 'quick-view-modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50';
+    modal.innerHTML = `
+      <div class="quick-view-content bg-white rounded-lg p-6 max-w-4xl mx-4 max-h-[90vh] overflow-y-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="product-quick-image">
+            <img src="${this.product.image?.url || this.product.thumbnail}" alt="${this.product.name}" class="w-full rounded-lg">
+          </div>
+          <div class="product-quick-details">
+            <h3 class="text-2xl font-bold mb-3">${this.product.name}</h3>
+            ${this.product.subtitle ? `<p class="text-gray-600 mb-4">${this.product.subtitle}</p>` : ''}
+            <div class="product-quick-price mb-4">
+              ${this.getProductPrice()}
+            </div>
+            ${this.product.rating?.stars ? `
+              <div class="product-quick-rating mb-4 flex items-center">
+                <div class="flex text-yellow-400">
+                  ${Array.from({length: 5}, (_, i) => `<i class="sicon-star${i < this.product.rating.stars ? '2' : ''} text-sm"></i>`).join('')}
+                </div>
+                <span class="ml-2 text-gray-600">(${this.product.rating.stars})</span>
+              </div>
+            ` : ''}
+            <div class="product-quick-actions mt-6">
+              <a href="${this.product.url}" class="btn btn-primary mr-3">عرض التفاصيل</a>
+              <button class="btn btn-secondary quick-view-close">إغلاق</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Close modal events
+    const closeBtn = modal.querySelector('.quick-view-close');
+    closeBtn.addEventListener('click', () => {
+      document.body.removeChild(modal);
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        document.body.removeChild(modal);
+      }
+    });
+  }
+
+  /**
+   * Toggle compare functionality
+   */
+  toggleCompare() {
+    const compareItems = JSON.parse(localStorage.getItem('compareItems') || '[]');
+    const productId = this.product.id;
+    const compareBtn = this.querySelector('.compare-btn');
+
+    if (compareItems.includes(productId)) {
+      // Remove from compare
+      const index = compareItems.indexOf(productId);
+      compareItems.splice(index, 1);
+      compareBtn.classList.remove('active');
+      this.showNotification('تم إزالة المنتج من المقارنة', 'success');
+    } else {
+      // Add to compare (max 3 items)
+      if (compareItems.length >= 3) {
+        this.showNotification('يمكن مقارنة 3 منتجات فقط', 'warning');
+        return;
+      }
+      compareItems.push(productId);
+      compareBtn.classList.add('active');
+      this.showNotification('تم إضافة المنتج للمقارنة', 'success');
+    }
+
+    localStorage.setItem('compareItems', JSON.stringify(compareItems));
+    this.updateCompareCounter();
+  }
+
+  /**
+   * Update compare counter in header
+   */
+  updateCompareCounter() {
+    const compareItems = JSON.parse(localStorage.getItem('compareItems') || '[]');
+    const counter = document.querySelector('.compare-counter');
+    if (counter) {
+      counter.textContent = compareItems.length;
+      counter.style.display = compareItems.length > 0 ? 'block' : 'none';
+    }
+  }
+
+  /**
+   * Change product variant (color/size)
+   */
+  changeProductVariant(variantId, imageUrl) {
+    const productImage = this.querySelector('.s-product-card-image img');
+    if (productImage && imageUrl) {
+      productImage.src = imageUrl;
+    }
+
+    // Update active color swatch
+    this.querySelectorAll('.color-swatch').forEach(swatch => {
+      swatch.classList.remove('active');
+    });
+    this.querySelector(`[data-variant-id="${variantId}"]`)?.classList.add('active');
+  }
+
+  /**
+   * Show notification
+   */
+  showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification fixed top-4 right-4 z-50 px-4 py-2 rounded-lg text-white ${
+      type === 'success' ? 'bg-green-500' : 
+      type === 'warning' ? 'bg-yellow-500' : 
+      type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+    }`;
+    notification.textContent = message;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+      notification.style.opacity = '0';
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 300);
+    }, 3000);
+  }
+
+  /**
+   * Generate smart badges
+   */
+  getSmartBadges() {
+    const badges = [];
+    
+    // Promotion badge
+    if (this.product.promotion_title) {
+      badges.push(`<div class="product-badge promotion-badge">${this.product.promotion_title}</div>`);
+    }
+    
+    // Best seller badge (mock logic - would be based on real data)
+    if (this.product.rating?.stars >= 4.5) {
+      badges.push(`<div class="product-badge bestseller-badge">🏆 الأكثر مبيعاً</div>`);
+    }
+    
+    // New badge (for products added in last 30 days)
+    const productDate = new Date(this.product.created_at);
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    if (productDate > thirtyDaysAgo) {
+      badges.push(`<div class="product-badge new-badge">✨ جديد</div>`);
+    }
+    
+    // Sale badge
+    if (this.product.is_on_sale) {
+      const discount = Math.round(((this.product.regular_price - this.product.sale_price) / this.product.regular_price) * 100);
+      badges.push(`<div class="product-badge sale-badge">-${discount}%</div>`);
+    }
+    
+    // Limited stock badge
+    if (this.product.quantity > 0 && this.product.quantity <= 5) {
+      badges.push(`<div class="product-badge limited-badge">⚡ كمية محدودة</div>`);
+    }
+    
+    // Out of stock badge
+    if (this.product.is_out_of_stock) {
+      badges.push(`<div class="product-badge out-of-stock-badge">نفد المخزون</div>`);
+    }
+
+    return badges.join('');
+  }
+
+  /**
+   * Generate color swatches if available
+   */
+  getColorSwatches() {
+    if (!this.product.options || !this.product.options.length) return '';
+    
+    const colorOption = this.product.options.find(opt => opt.name.toLowerCase().includes('لون') || opt.name.toLowerCase().includes('color'));
+    if (!colorOption) return '';
+
+    const swatches = colorOption.values.slice(0, 4).map(value => `
+      <div class="color-swatch" 
+           data-variant-id="${value.id}" 
+           data-image-url="${value.image || this.product.image?.url}"
+           style="background-color: ${value.hex_code || '#ccc'}"
+           title="${value.name}">
+      </div>
+    `).join('');
+
+    return `<div class="color-swatches flex gap-1 mt-2">${swatches}</div>`;
+  }
+
   initCircleBar() {
     let qty = this.product.quantity,
       total = this.product.quantity > 100 ? this.product.quantity * 2 : 100,
@@ -155,7 +404,7 @@ class ProductCard extends HTMLElement {
   }
 
   render(){
-    this.classList.add('s-product-card-entry'); 
+    this.classList.add('s-product-card-entry', 'enhanced-product-card'); 
     this.setAttribute('id', this.product.id);
     !this.horizontal && !this.fullImage && !this.minimal? this.classList.add('s-product-card-vertical') : '';
     this.horizontal && !this.fullImage && !this.minimal? this.classList.add('s-product-card-horizontal') : '';
@@ -167,34 +416,53 @@ class ProductCard extends HTMLElement {
     this.shadowOnHover?  this.classList.add('s-product-card-shadow') : '';
     this.product?.is_out_of_stock?  this.classList.add('s-product-card-out-of-stock') : '';
     this.isInWishlist = !salla.config.isGuest() && salla.storage.get('salla::wishlist', []).includes(Number(this.product.id));
+    
+    const compareItems = JSON.parse(localStorage.getItem('compareItems') || '[]');
+    const isInCompare = compareItems.includes(this.product.id);
+    
     this.innerHTML = `
-        <div class="${!this.fullImage ? 's-product-card-image' : 's-product-card-image-full'}">
+        <div class="${!this.fullImage ? 's-product-card-image' : 's-product-card-image-full'} product-image-container">
           <a href="${this.product?.url}">
             <img class="s-product-card-image-${salla.url.is_placeholder(this.product?.image?.url)
               ? 'contain'
               : this.fitImageHeight
                 ? this.fitImageHeight
-                : 'cover'} lazy"
+                : 'cover'} lazy product-main-image"
               src=${this.placeholder}
               alt=${this.product?.image?.alt}
               data-src=${this.product?.image?.url || this.product?.thumbnail}
             />
-            ${!this.fullImage && !this.minimal ? this.getProductBadge() : ''}
+            
+            {# Enhanced Smart Badges #}
+            <div class="product-badges-container">
+              ${this.getSmartBadges()}
+            </div>
           </a>
+          
+          {# Enhanced Hover Actions #}
+          <div class="product-hover-actions">
+            <button class="quick-view-btn product-action-btn" title="عرض سريع">
+              <i class="sicon-eye"></i>
+            </button>
+            <button class="compare-btn product-action-btn ${isInCompare ? 'active' : ''}" title="مقارنة">
+              <i class="sicon-compare"></i>
+            </button>
+            ${!this.horizontal && !this.fullImage ?
+              `<salla-button
+                shape="icon"
+                fill="outline"
+                color="light"
+                name="product-name-${this.product.id}"
+                aria-label="Add or remove to wishlist"
+                class="s-product-card-wishlist-btn product-action-btn animated ${this.isInWishlist ? 's-product-card-wishlist-added pulse-anime' : 'not-added un-favorited'}"
+                onclick="salla.wishlist.toggle(${this.product.id})"
+                data-id="${this.product.id}">
+                <i class="sicon-heart"></i>
+              </salla-button>` : ``
+            }
+          </div>
+          
           ${this.fullImage ? `<a href="${this.product?.url}" aria-label=${this.product.name} class="s-product-card-overlay"></a>`:''}
-          ${!this.horizontal && !this.fullImage ?
-            `<salla-button
-              shape="icon"
-              fill="outline"
-              color="light"
-              name="product-name-${this.product.id}"
-              aria-label="Add or remove to wishlist"
-              class="s-product-card-wishlist-btn animated ${this.isInWishlist ? 's-product-card-wishlist-added pulse-anime' : 'not-added un-favorited'}"
-              onclick="salla.wishlist.toggle(${this.product.id})"
-              data-id="${this.product.id}">
-              <i class="sicon-heart"></i>
-            </salla-button>` : ``
-          }
         </div>
         <div class="s-product-card-content">
           ${this.isSpecial && this.product?.quantity ?
@@ -218,6 +486,9 @@ class ProductCard extends HTMLElement {
             ${this.product?.subtitle && !this.minimal ?
               `<p class="s-product-card-content-subtitle opacity-80">${this.product?.subtitle}</p>`
               : ``}
+              
+            {# Color Swatches #}
+            ${this.getColorSwatches()}
           </div>
           ${this.product?.donation && !this.minimal && !this.fullImage ?
           `<salla-progress-bar donation=${JSON.stringify(this.product?.donation)}></salla-progress-bar>
@@ -297,6 +568,10 @@ class ProductCard extends HTMLElement {
       if (this.product?.quantity && this.isSpecial) {
         this.initCircleBar();
       }
+      
+      // Initialize enhanced features
+      this.initEnhancedHoverEffects();
+      this.updateCompareCounter();
     }
 }
 

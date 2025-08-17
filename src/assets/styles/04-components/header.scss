@@ -1,4 +1,143 @@
 
+/* Welcome Banner Animation */
+#welcome-banner {
+  position: relative;
+  
+  .welcome-messages {
+    position: relative;
+    height: 24px;
+    overflow: hidden;
+  }
+  
+  .welcome-message {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+    white-space: nowrap;
+    
+    &.active {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    
+    &.exit {
+      transform: translateX(-50%) translateY(-100%);
+      opacity: 0;
+    }
+  }
+}
+
+/* Category Dropdown Enhancements */
+.category-dropdown {
+  .category-preview {
+    transform: translateY(-10px);
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 20px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid white;
+    }
+  }
+  
+  .category-item {
+    cursor: pointer;
+    
+    img {
+      transition: transform 0.3s ease;
+    }
+    
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* Enhanced Search Styles */
+.search-container {
+  #ai-search {
+    background: rgba(249, 250, 251, 0.8);
+    backdrop-filter: blur(10px);
+    
+    &:focus {
+      background: white;
+      transform: scale(1.02);
+    }
+    
+    &::placeholder {
+      color: #9CA3AF;
+    }
+  }
+  
+  #search-suggestions {
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(229, 231, 235, 0.3);
+    
+    &.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+  
+  .suggestion-item {
+    @apply flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors duration-200;
+    
+    .suggestion-image {
+      @apply w-8 h-8 rounded mr-3 object-cover bg-gray-100;
+    }
+    
+    .suggestion-text {
+      @apply text-sm text-gray-700;
+    }
+  }
+}
+
+/* Cart Animation Enhancements */
+.cart-container {
+  .cart-bubble {
+    animation: cartBubbleAnimation 1s ease-out;
+    pointer-events: none;
+    
+    &.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+@keyframes cartBubbleAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(20px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Enhanced hover effects for navigation */
+.nav-link {
+  position: relative;
+  
+  &:hover {
+    color: #2563EB;
+  }
+}
+
 /* Top Nav */
 .top-navbar {
   @apply flex py-2 min-h-[48px];

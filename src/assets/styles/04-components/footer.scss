@@ -47,3 +47,427 @@
 .copyright-text p{
   @apply text-gray-700;
 }
+
+/* Enhanced Footer Styles */
+.enhanced-footer {
+  position: relative;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  overflow: hidden;
+  
+  // Dynamic gradient background animation
+  .footer-bg-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    
+    .gradient-orb {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.4;
+      filter: blur(40px);
+      animation: float 8s ease-in-out infinite;
+      
+      &.gradient-orb-1 {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+        top: -150px;
+        left: -100px;
+        animation-delay: 0s;
+      }
+      
+      &.gradient-orb-2 {
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, transparent 70%);
+        top: 50%;
+        right: -100px;
+        animation-delay: 2s;
+      }
+      
+      &.gradient-orb-3 {
+        width: 250px;
+        height: 250px;
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%);
+        bottom: -125px;
+        left: 30%;
+        animation-delay: 4s;
+      }
+    }
+  }
+  
+  // Section titles enhancement
+  .footer-section-title {
+    @apply text-lg font-bold text-gray-800 mb-4;
+    
+    .section-title-line {
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 1px;
+    }
+  }
+  
+  // Enhanced social buttons
+  .social-buttons-enhanced {
+    .enhanced-social {
+      a {
+        @apply w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 text-gray-600 hover:text-white;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        
+        &:hover {
+          transform: translateY(-2px) scale(1.1);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        // Platform-specific colors
+        &[href*="facebook"] {
+          &:hover { background: #1877f2; }
+        }
+        &[href*="twitter"] {
+          &:hover { background: #1da1f2; }
+        }
+        &[href*="instagram"] {
+          &:hover { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        }
+        &[href*="youtube"] {
+          &:hover { background: #ff0000; }
+        }
+        &[href*="tiktok"] {
+          &:hover { background: #000000; }
+        }
+        &[href*="snapchat"] {
+          &:hover { background: #fffc00; color: #000; }
+        }
+      }
+    }
+  }
+  
+  // Newsletter enhancement
+  .newsletter-enhanced {
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.05);
+    
+    .newsletter-form {
+      input {
+        transition: all 0.3s ease;
+        
+        &:focus {
+          transform: scale(1.02);
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+      }
+      
+      .newsletter-btn {
+        position: relative;
+        overflow: hidden;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+          transition: left 0.5s;
+        }
+        
+        &:hover::before {
+          left: 100%;
+        }
+      }
+    }
+  }
+  
+  // Enhanced footer links
+  .footer-links-enhanced {
+    .enhanced-footer-menu {
+      a {
+        @apply block py-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 relative;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 0;
+          height: 1px;
+          background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+          transition: width 0.3s ease;
+        }
+        
+        &:hover::before {
+          width: 100%;
+        }
+      }
+    }
+  }
+  
+  // Contact section enhancements
+  .contact-enhanced {
+    .enhanced-contacts {
+      .contact-item {
+        @apply flex items-center py-2 text-gray-600 hover:text-blue-600 transition-colors duration-300;
+        
+        i {
+          @apply w-5 h-5 mr-3 text-blue-500;
+        }
+      }
+    }
+    
+    .map-preview {
+      .map-placeholder {
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        
+        &:hover {
+          border-color: rgba(59, 130, 246, 0.4);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+        }
+      }
+    }
+  }
+  
+  // App download section
+  .app-download-enhanced {
+    .enhanced-app-icons {
+      a {
+        @apply block mb-3 transition-transform duration-300 hover:scale-105;
+        
+        img {
+          @apply rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300;
+        }
+      }
+    }
+    
+    .qr-code-section {
+      border: 1px solid rgba(156, 163, 175, 0.2);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        border-color: rgba(59, 130, 246, 0.3);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+      }
+    }
+  }
+  
+  // Reviews preview
+  .reviews-preview {
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    
+    .rating-stars {
+      .sicon-star2 {
+        filter: drop-shadow(0 1px 2px rgba(251, 191, 36, 0.3));
+      }
+    }
+  }
+  
+  // Footer bottom
+  .footer-bottom {
+    .theme-toggle-btn {
+      position: relative;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      &:hover::before {
+        opacity: 1;
+      }
+    }
+    
+    .enhanced-payments {
+      img {
+        @apply transition-transform duration-300 hover:scale-110;
+        filter: grayscale(20%);
+        
+        &:hover {
+          filter: grayscale(0%);
+        }
+      }
+    }
+  }
+  
+  // Floating actions
+  .floating-actions {
+    .floating-btn {
+      position: relative;
+      border: none;
+      backdrop-filter: blur(10px);
+      
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      &:hover::before {
+        opacity: 1;
+      }
+      
+      &#back-to-top {
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        
+        &.show {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .enhanced-footer {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    
+    .footer-section-title {
+      @apply text-gray-200;
+    }
+    
+    .social-buttons-enhanced .enhanced-social a {
+      background: rgba(30, 41, 59, 0.8);
+      @apply text-gray-300;
+    }
+    
+    .newsletter-enhanced {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.2) 0%, rgba(91, 33, 182, 0.2) 100%);
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    
+    .footer-links-enhanced .enhanced-footer-menu a {
+      @apply text-gray-300 hover:text-blue-400;
+    }
+    
+    .contact-enhanced .enhanced-contacts .contact-item {
+      @apply text-gray-300 hover:text-blue-400;
+    }
+    
+    .reviews-preview {
+      background: linear-gradient(135deg, rgba(180, 83, 9, 0.2) 0%, rgba(194, 65, 12, 0.2) 100%);
+      border-color: rgba(251, 191, 36, 0.3);
+    }
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .enhanced-footer {
+    .footer-bg-animation .gradient-orb {
+      display: none; // Hide for performance on mobile
+    }
+    
+    .newsletter-enhanced {
+      .newsletter-form {
+        flex-direction: column;
+        
+        input {
+          margin-bottom: 8px;
+        }
+        
+        .newsletter-btn {
+          width: 100%;
+        }
+      }
+    }
+    
+    .floating-actions {
+      bottom: 1rem;
+      right: 1rem;
+      
+      .floating-btn {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 14px;
+      }
+    }
+    
+    .app-download-enhanced .qr-code-section {
+      .qr-code-container {
+        flex-direction: column;
+        text-align: center;
+        
+        .qr-code-placeholder {
+          margin: 0 auto 8px;
+        }
+      }
+    }
+  }
+}
+
+/* Animation Keyframes */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(10px) rotate(240deg);
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .enhanced-footer {
+    background: #000;
+    color: #fff;
+    
+    .footer-section-title {
+      color: #fff;
+      border-bottom: 2px solid #fff;
+    }
+    
+    .social-buttons-enhanced .enhanced-social a {
+      background: #fff;
+      color: #000;
+      border: 2px solid #000;
+    }
+    
+    .newsletter-enhanced {
+      background: #333;
+      border: 2px solid #fff;
+    }
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .enhanced-footer {
+    .footer-bg-animation .gradient-orb {
+      animation: none;
+    }
+    
+    .social-buttons-enhanced .enhanced-social a,
+    .newsletter-btn,
+    .floating-btn,
+    .theme-toggle-btn {
+      transition: none;
+      transform: none;
+    }
+    
+    .floating-btn:hover {
+      transform: none;
+    }
+  }
+}

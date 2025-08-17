@@ -7,6 +7,23 @@
 #}
 {% extends "layouts.master" %}
 {% block content %}
+    {# Test Hero Banner - Remove this when using dashboard components #}
+    {% set test_component = {
+        'background_image': 'https://cdn.salla.sa/mQgZlG/lkyDjYwvWJNmAQoGnLALLcUkm66rCCDbTyVlSGdH.jpg',
+        'title': 'عبايات أنيقة تعكس أناقتك',
+        'subtitle': 'مجموعة حصرية من أجمل العبايات النسائية',
+        'description': 'اكتشفي مجموعتنا المميزة من العبايات العصرية والتراثية المصممة خصيصاً للمرأة العربية الأنيقة. تصاميم فاخرة بأجود الخامات وأحدث صيحات الموضة',
+        'primary_button_text': 'تسوقي الآن',
+        'primary_button_url': '#',
+        'secondary_button_text': 'عرض المجموعة',
+        'secondary_button_url': '#',
+        'text_position': 'right',
+        'overlay_opacity': 'medium',
+        'stats_text': 'أكثر من 5000 عميلة راضية عن منتجاتنا'
+    } %}
+    {% include 'components.home.hero-banner' with {'component': test_component} %}
+    
+    {# Original home components #}
     {% component home %}
 {% endblock %}
 {% block scripts %}
