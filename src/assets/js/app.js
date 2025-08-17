@@ -14,6 +14,7 @@ class App extends AppHelpers {
     this.commonThings();
     this.initiateNotifier();
     this.initiateMobileMenu();
+    this.initiateNewMobileMenu();
     if (header_is_sticky) {
       this.initiateStickyMenu();
     }
@@ -160,6 +161,33 @@ isElementLoaded(selector){
   });
 
   }
+
+  initiateNewMobileMenu() {
+    // Handle new mobile menu toggle for the redesigned header
+    salla.event.on('mobile-menu::toggle', () => {
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+        document.body.classList.toggle('overflow-hidden');
+      }
+    });
+
+    salla.event.on('mobile-menu::close', () => {
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenu) {
+        mobileMenu.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+    });
+
+    // Close mobile menu when clicking outside
+    this.onClick('#mobile-menu', (event) => {
+      if (event.target.id === 'mobile-menu') {
+        salla.event.dispatch('mobile-menu::close');
+      }
+    });
+  }
+
  initAttachWishlistListeners() {
     let isListenerAttached = false;
   
